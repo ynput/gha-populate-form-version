@@ -36,9 +36,10 @@ async function listGithubReleases(repoName) {
 			await github
 				.getOctokit(process.env.GITHUB_TOKEN)
 				.rest.repos.listReleases({ owner, repo, per_page: 100, page })
-		).data.map((value) => value.tag_name.replace(/^CI\//, ''));
+		).data.map((value) => value.tag_name.replace(/CI\//g, ''));
 		tags.push(...results);
 		page++;
+		info(`Results ${results}`);
 		return results.length > 0 && fetch();
 	}
 	await fetch();
