@@ -36,7 +36,7 @@ async function listGithubReleases(repoName) {
 			await github
 				.getOctokit(process.env.GITHUB_TOKEN)
 				.rest.repos.listTags({ owner, repo, per_page: 100, page })
-		).data.map((value) => value.tag_name.replace(/CI\//g, ''));
+		).data.map((value) => value.name.replace(/CI\//g, ''));
 		tags.push(...results);
 		page++;
 		return results.length > 0 && fetch();
@@ -63,5 +63,5 @@ export async function listTags(registry, packageName) {
 		default:
 			throw new Error(`registry "${registry}" is not supported`);
 	}
-	return tags;
+	return tags.sort();
 }

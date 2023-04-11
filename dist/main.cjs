@@ -89847,7 +89847,7 @@ async function listTags(registry, packageName) {
 		default:
 			throw new Error(`registry "${registry}" is not supported`);
 	}
-	return tags;
+	return tags.sort();
 }
 
 async function run() {
