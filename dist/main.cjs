@@ -89842,11 +89842,7 @@ async function listTags(registry, packageName) {
 			tags = listNPMTags(packageName);
 			break;
 		case 'github':
-			let tagsFound = [...await listGithubReleases(packageName)];
-			coreExports.info(`tagsFound: ${tagsFound}`);
-
-			const tagsSet = new Set(tagsFound);
-			const tags = Array.from(tagsSet).sort();
+			tags = listGithubReleases(packageName);
 			break;
 		default:
 			throw new Error(`registry "${registry}" is not supported`);
@@ -89877,6 +89873,7 @@ async function run() {
 			list.reverse();
 		}
 		const tags = list
+			.sort()
 			.slice(0, limitTo)
 			.filter(
 				(tag) =>
