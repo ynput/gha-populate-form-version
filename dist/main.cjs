@@ -89842,14 +89842,14 @@ async function listTags(registry, packageName) {
 			tags = listNPMTags(packageName);
 			break;
 		case 'github':
-			tags = listGithubReleases(packageName);
+			tagsFound = listGithubReleases(packageName);
+			const tagsSet = new Set(tagsFound);
+			const tags = Array.from(tagsSet).sort();
 			break;
 		default:
 			throw new Error(`registry "${registry}" is not supported`);
 	}
-	const tagsSet = new Set(tags);
-	const tagsOutput = Array.from(tagsSet).sort();
-	return tagsOutput;
+	return tags;
 }
 
 async function run() {
