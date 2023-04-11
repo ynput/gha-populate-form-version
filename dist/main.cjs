@@ -89842,8 +89842,7 @@ async function listTags(registry, packageName) {
 			tags = listNPMTags(packageName);
 			break;
 		case 'github':
-			let tagsFound = [];
-			tagsFound = listGithubReleases(packageName);
+			let tagsFound = [...await listGithubReleases(packageName)];
 			coreExports.info(`tagsFound: ${tagsFound}`);
 
 			const tagsSet = new Set(tagsFound);
