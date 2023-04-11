@@ -89820,12 +89820,13 @@ async function listGithubReleases(repoName) {
 			await github
 				.getOctokit(process.env.GITHUB_TOKEN)
 				.rest.repos.listReleases({ owner, repo, per_page: 100, page })
-		).data.map((value) => value.tag_name);
+		).data.map((value) => value.tag_name.replace(/^CI\//g, ''));
 		tags.push(...results);
 		page++;
 		return results.length > 0 && fetch();
 	}
 	await fetch();
+	info(`Tags ${tags}`);
 	return tags;
 }
 /**
