@@ -89842,6 +89842,7 @@ async function listTags(registry, packageName) {
 			tags = listNPMTags(packageName);
 			break;
 		case 'github':
+			let tagsFound = [];
 			tagsFound = listGithubReleases(packageName);
 			const tagsSet = new Set(tagsFound);
 			const tags = Array.from(tagsSet).sort();
