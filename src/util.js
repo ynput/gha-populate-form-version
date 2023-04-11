@@ -28,7 +28,7 @@ async function listGithubReleases(repoName) {
 		owner = github.context.repo.owner;
 		repo = github.context.repo.repo;
 	}
-	info(`Fetching github releases for ${owner}/${repo}`);
+	info(`Fetching 01 github releases for ${owner}/${repo}`);
 	let page = 1;
 	const tags = [];
 	async function fetch() {
@@ -39,10 +39,10 @@ async function listGithubReleases(repoName) {
 		).data.map((value) => value.tag_name.replace(/CI\//g, ''));
 		tags.push(...results);
 		page++;
-		info(`Results ${results}`);
 		return results.length > 0 && fetch();
 	}
 	await fetch();
+	info(`Tags ${tags}`);
 	return tags;
 }
 /**
