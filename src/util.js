@@ -35,7 +35,7 @@ async function listGithubReleases(repoName) {
 		const results = (
 			await github
 				.getOctokit(process.env.GITHUB_TOKEN)
-				.rest.repos.listReleases({ owner, repo, per_page: 100, page })
+				.rest.repos.listTags({ owner, repo, per_page: 100, page })
 		).data.map((value) => value.tag_name.replace(/CI\//g, ''));
 		tags.push(...results);
 		page++;
