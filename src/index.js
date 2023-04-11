@@ -20,6 +20,11 @@ async function run() {
 		});
 		info(`Fetching tags from ${registry}`);
 		const list = await listTags(registry, packageName);
+
+		// sorting order
+		list.sort();
+		list.reverse();
+
 		const latest = list[0];
 		if (order === 'asc') {
 			list.reverse();

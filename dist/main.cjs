@@ -1773,7 +1773,7 @@ tunnel.debug = debug$2; // for test
 	}
 	exports.HttpClient = HttpClient;
 	const lowercaseKeys = (obj) => Object.keys(obj).reduce((c, k) => ((c[k.toLowerCase()] = obj[k]), c), {});
-	
+
 } (lib$2));
 
 var auth$1 = {};
@@ -1906,8 +1906,8 @@ function requireOidcUtils () {
 	            const res = yield httpclient
 	                .getJson(id_token_url)
 	                .catch(error => {
-	                throw new Error(`Failed to get ID Token. \n 
-        Error Code : ${error.statusCode}\n 
+	                throw new Error(`Failed to get ID Token. \n
+        Error Code : ${error.statusCode}\n
         Error Message: ${error.result.message}`);
 	            });
 	            const id_token = (_a = res.result) === null || _a === void 0 ? void 0 : _a.value;
@@ -1938,7 +1938,7 @@ function requireOidcUtils () {
 	    }
 	}
 	oidcUtils.OidcClient = OidcClient;
-	
+
 	return oidcUtils;
 }
 
@@ -2231,7 +2231,7 @@ function requireSummary () {
 		 */
 		exports.markdownSummary = _summary;
 		exports.summary = _summary;
-		
+
 } (summary));
 	return summary;
 }
@@ -2299,7 +2299,7 @@ function requirePathUtils () {
 	    return pth.replace(/[/\\]/g, path.sep);
 	}
 	pathUtils.toPlatformPath = toPlatformPath;
-	
+
 	return pathUtils;
 }
 
@@ -2644,7 +2644,7 @@ function requireCore () {
 		Object.defineProperty(exports, "toPosixPath", { enumerable: true, get: function () { return path_utils_1.toPosixPath; } });
 		Object.defineProperty(exports, "toWin32Path", { enumerable: true, get: function () { return path_utils_1.toWin32Path; } });
 		Object.defineProperty(exports, "toPlatformPath", { enumerable: true, get: function () { return path_utils_1.toPlatformPath; } });
-		
+
 } (core));
 	return core;
 }
@@ -89819,8 +89819,8 @@ async function listGithubReleases(repoName) {
 		const results = (
 			await github
 				.getOctokit(process.env.GITHUB_TOKEN)
-				.rest.repos.listReleases({ owner, repo, per_page: 100, page })
-		).data.map((value) => value.tag_name.replace(/^CI\//g, ''));
+				.rest.repos.listTags({ owner, repo, per_page: 100, page })
+		).data.map((value) => value.name.replace(/^CI\//g, ''));
 		tags.push(...results);
 		page++;
 		return results.length > 0 && fetch();
@@ -89868,6 +89868,11 @@ async function run() {
 		});
 		coreExports.info(`Fetching tags from ${registry}`);
 		const list = await listTags(registry, packageName);
+
+		// sorting order
+		list.sort();
+		list.reverse();
+
 		const latest = list[0];
 		if (order === 'asc') {
 			list.reverse();
