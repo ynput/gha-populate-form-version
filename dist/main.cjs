@@ -89868,12 +89868,12 @@ async function run() {
 		});
 		coreExports.info(`Fetching tags from ${registry}`);
 		const list = await listTags(registry, packageName);
+		list.sort()
 		const latest = list[0];
 		if (order === 'asc') {
 			list.reverse();
 		}
 		const tags = list
-			.sort()
 			.slice(0, limitTo)
 			.filter(
 				(tag) =>
