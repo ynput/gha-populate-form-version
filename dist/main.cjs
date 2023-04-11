@@ -89844,6 +89844,8 @@ async function listTags(registry, packageName) {
 		case 'github':
 			let tagsFound = [];
 			tagsFound = listGithubReleases(packageName);
+			coreExports.info(`tagsFound: ${tagsFound}`);
+
 			const tagsSet = new Set(tagsFound);
 			const tags = Array.from(tagsSet).sort();
 			break;
