@@ -89826,7 +89826,7 @@ async function listGithubReleases(repoName) {
 		return results.length > 0 && fetch();
 	}
 	await fetch();
-	info(`Tags ${tags}`);
+	coreExports.info(`Tags ${tags}`);
 	return tags;
 }
 /**
