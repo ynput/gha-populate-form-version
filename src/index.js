@@ -22,7 +22,7 @@ async function run() {
 		const list = await listTags(registry, packageName);
 
 		// regex pattern witch would exclude all semver version with are having prefix with 'v'
-		const pattern = /(?!AYON\/|v)(\d+\.\d+\.\d+)/;
+		const pattern = /(?<!AYON/)(?<!v)(\d+\.\d+\.\d+)/;
 
 		const semverSortedList = [];
 
