@@ -21,15 +21,26 @@ async function run() {
 		info(`Fetching tags from ${registry}`);
 		const list = await listTags(registry, packageName);
 
-		// sorting order
-		list.sort();
-		list.reverse();
+		// regex pattern witch would exclude all semver version with are having prefix with 'v'
+		const pattern = /(?<!v)(\d+\.\d+\.\d+)/;
 
-		const latest = list[0];
-		if (order === 'asc') {
-			list.reverse();
+		const semverSortedList = [];
+
+		// iterate all versions and use pattern to exclude those which do not match in Python 3.6
+		list.forEach(version => {
+		if (version.match(pattern)) {
+			semverSortedList.push(version);
 		}
-		const tags = list
+		});
+
+		// sort all versions in newVersions with semver and reverse the order
+		semverSortedList.sort((a, b) => semver.rcompare(a, b));
+
+		const latest = semverSortedList[0];
+		if (order === 'asc') {
+			semverSortedList.reverse();
+		}
+		const tags = semverSortedList
 			.slice(0, limitTo)
 			.filter(
 				(tag) =>
