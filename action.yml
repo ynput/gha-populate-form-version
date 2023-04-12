@@ -141,6 +141,7 @@ runs:
       id: write
       uses: ShaMan123/gha-form-dropdown-options@v2.0.3
       with:
+        github_token: ${{ inputs.GITHUB_TOKEN }}
         template: ${{ inputs.template }}
         form: ${{ inputs.form }}
         dropdown: ${{ inputs.dropdown }}
